@@ -48,15 +48,20 @@ class NullInMapsTest {
     @Test
     void testNullInEntity() throws JsonMappingException, JsonProcessingException {
 
-      final String serialized = "{ \"simpleString\":\"just a simple man\", \"stringMap\":{ \"foo\":\"bar\", \"testNull\":null } }";
+      final String serialized = "{ \"simpleString\":\"just a simple man\", \"stringMap\":{ \"foo\":\"bar\", \"testNull\":null }, \"objectMap\": { \"oans\": { \"aString\":\"eins\" }, \"koans\": null } }";
 
       final EntityWithMap out = objectMapper.readValue(serialized, EntityWithMap.class);
 
       assertTrue(out.getStringMap().containsKey("testNull"));
       assertNull(out.getStringMap().get("testNull"));
-
       // just to be sure
       assertEquals("bar", out.getStringMap().get("foo"));
+
+
+      assertTrue(out.getObjectMap().containsKey("koans"));
+      assertNull(out.getObjectMap().get("koans"));
+      // just to be sure
+      assertEquals("eins", out.getObjectMap().get("oans").getaString());
     }
 
 }

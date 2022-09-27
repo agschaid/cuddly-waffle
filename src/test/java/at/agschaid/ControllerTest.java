@@ -63,7 +63,7 @@ public class ControllerTest {
 
     Mockito.when(serviceMock.handleEntityReactive(any())).thenReturn(Completable.complete());
 
-    final String serialized = "{ \"simpleString\":\"just a simple man\", \"stringMap\":{ \"foo\":\"bar\", \"testNull\":null } }";
+      final String serialized = "{ \"simpleString\":\"just a simple man\", \"stringMap\":{ \"foo\":\"bar\", \"testNull\":null }, \"objectMap\": { \"oans\": { \"aString\":\"eins\" }, \"koans\": null } }";
     final HttpRequest request = HttpRequest.PUT("/entityReactive", serialized);
     Mono.from(client.exchange(request)).block();
 
@@ -73,6 +73,8 @@ public class ControllerTest {
     final EntityWithMap entityInService = entityCaptor.getValue();
     assertTrue(entityInService.getStringMap().containsKey("testNull"));
     assertNull(entityInService.getStringMap().get("testNull"));
+    assertTrue(entityInService.getObjectMap().containsKey("koans"));
+    assertNull(entityInService.getObjectMap().get("koans"));
 
   }
 
