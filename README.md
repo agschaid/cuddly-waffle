@@ -1,13 +1,5 @@
-## Micronaut 3.7.0 Documentation
 
-- [User Guide](https://docs.micronaut.io/3.7.0/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.7.0/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.7.0/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+We need null-values in JSON Maps to be also present in Java Maps.
 
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
+**TODO** point to test that violates this.
 
