@@ -4,10 +4,14 @@ import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
+import at.agschaid.model.EntityWithMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,12 +37,26 @@ class NullInMapsTest {
     }
 
     @Test
-    void testNullInMap() throws JsonMappingException, JsonProcessingException {
+    void testNullInSimpleMap() throws JsonMappingException, JsonProcessingException {
       final String mapWithNullValue = "{\"foo\":\"bar\", \"testNull\": null}";
-      Map<?,?> untypedMap = objectMapper.readValue(mapWithNullValue, Map.class);
+      final Map<?,?> untypedMap = objectMapper.readValue(mapWithNullValue, Map.class);
 
       assertTrue(untypedMap.containsKey("testNull"));
       assertNull(untypedMap.get("testNull"));
+    }
+
+    @Test
+    void testNullInEntity() throws JsonMappingException, JsonProcessingException {
+
+      final String serialized = "{ \"simpleString\":\"just a simple man\", \"stringMap\":{ \"foo\":\"bar\", \"testNull\":null } }";
+
+      final EntityWithMap out = objectMapper.readValue(serialized, EntityWithMap.class);
+
+      assertTrue(out.getStringMap().containsKey("testNull"));
+      assertNull(out.getStringMap().get("testNull"));
+
+      // just to be sure
+      assertEquals("bar", out.getStringMap().get("foo"));
     }
 
 }
