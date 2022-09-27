@@ -5,16 +5,9 @@ import java.util.Optional;
 
 public class EntityWithMap {
 
-  private Optional<String> optionalString;
   private String simpleString;
   private Map<String, String> stringMap;
 
-  public Optional<String> getOptionalString() {
-    return optionalString;
-  }
-  public void setOptionalString(Optional<String> optionalString) {
-    this.optionalString = optionalString;
-  }
   public String getSimpleString() {
     return simpleString;
   }
